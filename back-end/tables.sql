@@ -2,7 +2,7 @@ CREATE DATABASE projeto16
 
 CREATE TABLE users (
     "id" serial NOT NULL,
-    "nome" varchar(255) NOT NULL,
+    "name" varchar(255) NOT NULL,
     "email" varchar(255) NOT NULL UNIQUE,
     "password" varchar(255) NOT NULL,
     "createdAt" timestamp NOT NULL DEFAULT NOW(),
@@ -16,6 +16,7 @@ CREATE TABLE "links" (
     "createdAt" timestamp NOT NULL DEFAULT NOW(),
     CONSTRAINT links_pk PRIMARY KEY (id)
 );
+
 CREATE TABLE "usersLink" (
     "id" serial NOT NULL,
     "linksId" integer REFERENCES links(id),

@@ -1,10 +1,10 @@
 import {Router} from "express";
 
-import {getUsers, getRanking} from "./../controllers/usersController.js";
+// import {getUsers, getRanking} from "./../controllers/usersController.js";
 
-const userRouter = Router();
+// const userRouter = Router();
 
-userRouter.get('/users/:id', getUsers);
-userRouter.get('/users/ranking', getRanking);
+// userRouter.get('/users/:id', getUsers);
+// userRouter.get('/users/ranking', getRanking);
 
-export default userRouter;
+// export default userRouter;
