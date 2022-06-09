@@ -9,14 +9,6 @@ CREATE TABLE users (
     CONSTRAINT users_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE "links" (
-    "id" serial NOT NULL,
-    "completeLink" TEXT NOT NULL,
-    "shortLink" TEXT NOT NULL,
-    "createdAt" timestamp NOT NULL DEFAULT NOW(),
-    CONSTRAINT links_pk PRIMARY KEY (id)
-);
-
 CREATE TABLE "sessions" (
     "id" serial NOT NULL,
     "token" text NOT NULL,
@@ -28,6 +20,8 @@ CREATE TABLE "sessions" (
 CREATE TABLE "usersLink" (
     "id" serial NOT NULL,
     "linksId" integer REFERENCES links(id),
+    "completeLink" TEXT NOT NULL,
+    "shortLink" TEXT NOT NULL,
     "usersId" integer REFERENCES users(id),
     "views" integer NOT NULL DEFAULT '0',
     "createdAt" timestamp NOT NULL DEFAULT NOW(),
