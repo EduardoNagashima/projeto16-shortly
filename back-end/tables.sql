@@ -17,13 +17,12 @@ CREATE TABLE "sessions" (
     CONSTRAINT sessions_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE "usersLink" (
+CREATE TABLE "usersLinks" (
     "id" serial NOT NULL,
-    "linksId" integer REFERENCES links(id),
-    "completeLink" TEXT NOT NULL,
+    "fullLink" TEXT NOT NULL,
     "shortLink" TEXT NOT NULL,
-    "usersId" integer REFERENCES users(id),
+    "userId" integer REFERENCES users(id),
     "views" integer NOT NULL DEFAULT '0',
     "createdAt" timestamp NOT NULL DEFAULT NOW(),
-    CONSTRAINT "usersLink_pk" PRIMARY KEY (id)
+    CONSTRAINT "usersLinks_pk" PRIMARY KEY (id)
 );

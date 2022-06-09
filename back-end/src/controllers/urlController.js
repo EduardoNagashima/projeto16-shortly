@@ -6,12 +6,17 @@ export async function postUrl(req, res){
     const {url} = req.body;
     const nanoid = customAlphabet('1234567890abcdef', 8);
     const shortUrl = nanoid(url);
-    await db.query(`
-        INSERT INTO usersLinks("userId", "completeLink","shortLink") 
-        VALUES ($1, $2, $3);
-    `,[user.id, url, shortUrl]);
-    const obj = {
-        shortUrl
+    console.log(user.rows[0].id)
+    try{
+        await db.query(`
+        INSERT INTO "usersLinks"("fullLink","shortLink", "userId") VALUES ($1, $2, $3);
+        `,[url, shortUrl, user.rows[0].id]);
+        const obj = {
+            shortUrl
+        }
+        res.status(201).send(obj);
+    } catch (e){
+        console.log(e);
+        return res.status(500).send('Não foi possível se conectar com o BD')
     }
-    res.status(201).send(obj)
 }
