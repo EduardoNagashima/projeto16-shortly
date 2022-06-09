@@ -17,6 +17,14 @@ CREATE TABLE "links" (
     CONSTRAINT links_pk PRIMARY KEY (id)
 );
 
+CREATE TABLE "sessions" (
+    "id" serial NOT NULL,
+    "token" text NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL DEFAULT NOW(),
+    "userId" integer REFERENCES users(id),
+    CONSTRAINT sessions_pk PRIMARY KEY (id)
+);
+
 CREATE TABLE "usersLink" (
     "id" serial NOT NULL,
     "linksId" integer REFERENCES links(id),
