@@ -5,19 +5,9 @@ dotenv.config();
 const {Pool} = pg;
 let db;
 
-const user = 'postgres';
-const password = '123';
-const host = 'localhost';
-const port = 5432;
-const database = 'projeto16';
-
 try{
     db = new Pool({
-        user,
-        password,
-        host,
-        port,
-        database
+        connectionString: process.env.DATABASE_URL,
     });
 } catch (e){
     console.log("Erro ao se conectar com o BD ", e);
