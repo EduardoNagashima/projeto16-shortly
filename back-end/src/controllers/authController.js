@@ -23,7 +23,6 @@ export async function signup(req, res){
         INSERT INTO users ("name", "email", "password") 
         VALUES ($1, $2, $3);
         `,[name, email, cryptoPassword]);
-        console.log('entrou')
         return res.sendStatus(201);
     } catch (e){
         console.log(e);
