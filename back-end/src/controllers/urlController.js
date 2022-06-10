@@ -46,6 +46,7 @@ export async function getUrlId(req, res){
 
 export async function convertUrl(req, res){
     const {shortUrl} = req.params;
+    
     try{
         const linkInfo = await db.query(`
         SELECT * FROM "usersLinks"
@@ -59,10 +60,34 @@ export async function convertUrl(req, res){
             SET "views"= $1
         `,[(parseInt(linkInfo.rows[0].views) + 1)]);
 
-        //ENTENDER COMO O REDIRECT FUNCIONA
         return res.redirect(linkInfo.rows[0].fullLink);
     } catch (e) {
         console.log(e);
-        return res.status(500).send('Não foi possível se conectar com o BD')
+        return res.status(500).send('Não foi possível se conectar com o BD');
+    }
+}
+
+export async function deleteUrl(req, res){
+    const {id} = req.params;
+    const {user} = res.locals;
+    try{
+        const url = await db.query(`
+        SELECT * FROM "usersLinks"
+        WHERE id = $1
+        `,[id]);
+
+        if (url.rowCount === 0 || url.rows[0].userId !==  user.rows[0].id) {
+            return res.sendStatus(404);
+        }
+
+        await db.query(`
+            DELETE FROM "usersLinks" 
+            WHERE id = $1
+        `,[id]);
+        
+        return res.sendStatus(204);
+    } catch (e){
+        console.log(e);
+        return res.status(500).send('Não foi possível se conectar com o BD');
     }
 }
