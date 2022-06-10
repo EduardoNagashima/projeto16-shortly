@@ -1,11 +1,11 @@
 import {Router} from "express";
 
-// import {getUsers, getRanking} from "./../controllers/usersController.js";
-// import authMiddleware from "./../middlewares/authMiddleware.js";
+import {getUsers, getRanking} from "./../controllers/userController.js";
+import {authMiddleware} from "./../middlewares/authMiddleware.js";
 
-// const userRouter = Router();
+const userRouter = Router();
 
-// userRouter.get('/users/:id', authMiddleware, getUsers);
-// userRouter.get('/users/ranking', authMiddleware, getRanking);
+userRouter.get('/users/:id', authMiddleware, getUsers);
+userRouter.get('/ranking', authMiddleware, getRanking);
 
-// export default userRouter;
+export default userRouter;

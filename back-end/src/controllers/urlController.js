@@ -6,7 +6,6 @@ export async function postUrl(req, res){
     const {url} = req.body;
     const nanoid = customAlphabet('1234567890abcdef', 8);
     const shortUrl = nanoid();
-    console.log(user.rows[0].id, shortUrl);
     try{
         await db.query(`
         INSERT INTO "usersLinks" ("fullLink","shortLink", "userId") VALUES ($1, $2, $3);
@@ -14,7 +13,7 @@ export async function postUrl(req, res){
         const obj = {
             "shortUrl": shortUrl
         }
-        res.status(201).send('ae');
+        res.status(201).send(obj);
     } catch (e){
         console.log(e);
         return res.status(500).send('Não foi possível se conectar com o BD')
@@ -58,7 +57,8 @@ export async function convertUrl(req, res){
         await db.query(`
             UPDATE "usersLinks"
             SET "views"= $1
-        `,[(parseInt(linkInfo.rows[0].views) + 1)]);
+            WHERE ID= $2
+        `,[(parseInt(linkInfo.rows[0].views) + 1),linkInfo.rows[0].id]);
 
         return res.redirect(linkInfo.rows[0].fullLink);
     } catch (e) {
